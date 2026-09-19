@@ -1,1501 +1,461 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Happy M | La Salamandre - Mostaganem</title>
+    <title>Happy Food</title>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <meta name="description"
+          content="Happy Food - Salé, Sucré, Pizza, Burger, Tacos, Sandwich, Coffee et Gâteaux">
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#0b0b0b;
-    color:#fff;
-}
-
-header{
-    background:linear-gradient(135deg,#111,#1b1b1b);
-    padding:25px 15px;
-    text-align:center;
-    border-bottom:2px solid #d4af37;
-}
-
-.logo{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #d4af37;
-    margin-bottom:12px;
-}
-
-header h1{
-    color:#d4af37;
-    font-size:28px;
-}
-
-header p{
-    color:#ddd;
-    margin-top:7px;
-}
-
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:20px 15px 120px;
-}
-
-/* CATEGORIES */
-
-.categories{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:10px 0 20px;
-    scrollbar-width:none;
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
-}
-
-.category-btn{
-    flex:0 0 auto;
-    border:1px solid #d4af37;
-    background:#151515;
-    color:#fff;
-    padding:12px 18px;
-    border-radius:25px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.category-btn:hover,
-.category-btn.active{
-    background:#d4af37;
-    color:#000;
-}
-
-/* SECTION */
-
-.section-title{
-    margin:20px 0;
-    color:#d4af37;
-    font-size:25px;
-}
-
-/* PRODUCTS */
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:18px;
-}
-
-.product{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.25);
-    transition:.25s;
-}
-
-.product:hover{
-    transform:translateY(-4px);
-    border-color:#d4af37;
-}
-
-.product-img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    background:#222;
-}
-
-.product-content{
-    padding:15px;
-}
-
-.product h3{
-    color:#fff;
-    margin-bottom:8px;
-    font-size:19px;
-}
-
-.description{
-    color:#aaa;
-    font-size:13px;
-    min-height:35px;
-    margin-bottom:10px;
-}
-
-.price{
-    color:#d4af37;
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
-.add-btn{
-    width:100%;
-    padding:11px;
-    border:0;
-    border-radius:10px;
-    background:#d4af37;
-    color:#000;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.add-btn:hover{
-    background:#f0cc55;
-}
-
-/* CART */
-
-.cart-box{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:min(430px,calc(100% - 40px));
-    background:#111;
-    border:2px solid #d4af37;
-    border-radius:20px;
-    padding:18px;
-    z-index:1000;
-    box-shadow:0 10px 40px rgba(0,0,0,.6);
-}
-
-.cart-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:12px;
-}
-
-.cart-header h2{
-    color:#d4af37;
-}
-
-.cart-count{
-    background:#d4af37;
-    color:#000;
-    border-radius:50%;
-    min-width:28px;
-    height:28px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
-}
-
-.cart-items{
-    max-height:260px;
-    overflow-y:auto;
-}
-
-.cart-item{
-    border-bottom:1px solid #292929;
-    padding:10px 0;
-}
-
-.cart-item-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.cart-item-name{
-    font-weight:bold;
-}
-
-.cart-price{
-    color:#d4af37;
-    white-space:nowrap;
-}
-
-.modifiers{
-    color:#aaa;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.qty{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:8px;
-}
-
-.qty button{
-    width:27px;
-    height:27px;
-    border:0;
-    border-radius:7px;
-    cursor:pointer;
-    background:#333;
-    color:#fff;
-    font-size:17px;
-}
-
-.qty span{
-    min-width:20px;
-    text-align:center;
-}
-
-.total{
-    display:flex;
-    justify-content:space-between;
-    font-size:21px;
-    font-weight:bold;
-    margin:15px 0;
-}
-
-.total span:last-child{
-    color:#d4af37;
-}
-
-.order-form input,
-.order-form select,
-.order-form textarea{
-    width:100%;
-    padding:11px;
-    margin-bottom:8px;
-    background:#1d1d1d;
-    border:1px solid #333;
-    border-radius:9px;
-    color:#fff;
-}
-
-.order-form textarea{
-    min-height:60px;
-    resize:vertical;
-}
-
-.download-btn{
-    width:100%;
-    padding:13px;
-    background:#d4af37;
-    color:#000;
-    border:0;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:5px;
-}
-
-.clear-btn{
-    width:100%;
-    padding:9px;
-    background:#252525;
-    color:#fff;
-    border:1px solid #444;
-    border-radius:9px;
-    cursor:pointer;
-    margin-top:7px;
-}
-
-/* MODAL */
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    z-index:2000;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal-content{
-    background:#151515;
-    border:1px solid #d4af37;
-    border-radius:18px;
-    width:min(500px,100%);
-    padding:20px;
-    max-height:90vh;
-    overflow-y:auto;
-}
-
-.modal-content h2{
-    color:#d4af37;
-    margin-bottom:15px;
-}
-
-.option-group{
-    margin-bottom:15px;
-}
-
-.option-group h3{
-    margin-bottom:8px;
-}
-
-.option{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:#202020;
-    padding:10px;
-    border-radius:8px;
-    margin-bottom:6px;
-}
-
-.option input{
-    accent-color:#d4af37;
-}
-
-.modal-buttons{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
-
-.modal-buttons button{
-    flex:1;
-    padding:12px;
-    border-radius:10px;
-    border:0;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.cancel-btn{
-    background:#333;
-    color:#fff;
-}
-
-.confirm-btn{
-    background:#d4af37;
-    color:#000;
-}
-
-/* EMPTY */
-
-.empty{
-    text-align:center;
-    padding:30px;
-    color:#aaa;
-}
-
-/* FOOTER */
-
-footer{
-    background:#111;
-    border-top:1px solid #292929;
-    text-align:center;
-    padding:30px 15px;
-    margin-top:30px;
-}
-
-footer h2{
-    color:#d4af37;
-    margin-bottom:10px;
-}
-
-.socials{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:15px;
-}
-
-.socials a{
-    text-decoration:none;
-    color:#fff;
-    background:#222;
-    border:1px solid #333;
-    padding:10px 15px;
-    border-radius:10px;
-}
-
-.socials a:hover{
-    border-color:#d4af37;
-    color:#d4af37;
-}
-
-/* PNG ORDER */
-
-#orderPNG{
-    position:absolute;
-    left:-10000px;
-    top:0;
-    width:700px;
-    background:#fff;
-    color:#111;
-    padding:35px;
-    font-family:Arial,sans-serif;
-}
-
-#orderPNG .png-title{
-    text-align:center;
-    color:#111;
-    font-size:30px;
-    margin-bottom:5px;
-}
-
-#orderPNG .png-subtitle{
-    text-align:center;
-    color:#777;
-    margin-bottom:25px;
-}
-
-.png-line{
-    border-bottom:1px solid #ddd;
-    padding:10px 0;
-}
-
-.png-total{
-    display:flex;
-    justify-content:space-between;
-    font-size:24px;
-    font-weight:bold;
-    margin-top:20px;
-}
-
-@media(max-width:600px){
-
-    header h1{
-        font-size:23px;
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .product-img{
-        height:130px;
-    }
-
-    .product-content{
-        padding:11px;
-    }
-
-    .product h3{
-        font-size:16px;
-    }
-
-    .price{
-        font-size:17px;
-    }
-
-    .cart-box{
-        right:10px;
-        bottom:10px;
-        width:calc(100% - 20px);
-    }
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
+<!-- ================= HEADER ================= -->
 
-<img src="images/logo.jpeg"
-     class="logo"
-     onerror="this.style.display='none'">
+<header class="header">
 
-<h1>Happy M</h1>
+    <div class="logo-container">
+        <img src="logo.jpeg" alt="Happy Food" class="logo">
+    </div>
 
-<p>La Salamandre - Mostaganem</p>
+    <div class="brand">
+        <h1>Happy Food</h1>
+        <p>Bienvenue chez nous ❤️</p>
+    </div>
+
+    <button class="cart-button" onclick="openCart()">
+        🛒
+        <span id="cartCount">0</span>
+    </button>
 
 </header>
 
-<div class="container">
 
-<!-- CATEGORIES -->
+<!-- ================= HERO ================= -->
 
-<div class="categories" id="categories"></div>
+<section class="hero">
 
-<h2 class="section-title" id="sectionTitle"></h2>
+    <div class="hero-content">
 
-<div class="products" id="products"></div>
+        <h2>Bienvenue chez Happy Food</h2>
+
+        <p>
+            Découvrez nos délicieux produits
+            <br>
+            Salé & Sucré
+        </p>
+
+        <button onclick="scrollToMenu()" class="main-button">
+            Voir le menu
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MENU TYPE ================= -->
+
+<section class="menu-section" id="menu">
+
+    <div class="section-title">
+        <span></span>
+        <h2>Notre Menu</h2>
+        <span></span>
+    </div>
+
+
+    <div class="main-categories">
+
+        <button
+            class="main-category active"
+            onclick="selectMainCategory('sale', this)">
+            🥪 Salé
+        </button>
+
+        <button
+            class="main-category"
+            onclick="selectMainCategory('sucre', this)">
+            🍰 Sucré
+        </button>
+
+    </div>
+
+
+    <!-- ================= SALE ================= -->
+
+    <div id="saleSection">
+
+        <div class="categories" id="saleCategories">
+
+            <button
+                class="category active"
+                onclick="selectCategory('pizza', this)">
+                🍕 Happy Pizza
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('burger', this)">
+                🍔 Happy Burger
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('poule', this)">
+                🍗 Happy La Poule
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('tacos', this)">
+                🌯 Happy Tacos
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('sandwich', this)">
+                🥖 Happy Sandwich
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('other', this)">
+                🍽️ Autres
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('boisson', this)">
+                🥤 Boisson
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SUCRE ================= -->
+
+    <div id="sucreSection" style="display:none">
+
+        <div class="categories">
+
+            <button
+                class="category active"
+                onclick="selectCategory('coffee', this)">
+                ☕ Happy Coffee
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('gateaux', this)">
+                🍰 Happy Gâteaux
+            </button>
+
+            <button
+                class="category"
+                onclick="selectCategory('boisson_sucre', this)">
+                🥤 Boisson
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <div id="products" class="products-grid">
+        <!-- المنتجات تظهر هنا بواسطة JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div id="productModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-button" onclick="closeProduct()">
+            ×
+        </button>
+
+        <img
+            id="modalImage"
+            src=""
+            alt=""
+            class="modal-image">
+
+        <h2 id="modalName"></h2>
+
+        <p id="modalDescription"></p>
+
+        <div class="modal-price">
+            <span id="modalPrice"></span> DA
+        </div>
+
+
+        <!-- INGREDIENTS -->
+
+        <div class="options-section">
+
+            <h3>🥗 Ingrédients</h3>
+
+            <div id="ingredientsList"></div>
+
+        </div>
+
+
+        <!-- REMOVE -->
+
+        <div class="options-section">
+
+            <h3>➖ Sans</h3>
+
+            <div id="removeList"></div>
+
+        </div>
+
+
+        <!-- EXTRAS -->
+
+        <div class="options-section">
+
+            <h3>➕ Suppléments</h3>
+
+            <div id="extrasList"></div>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="quantity">
+
+            <button onclick="changeQuantity(-1)">
+                −
+            </button>
+
+            <span id="quantity">
+                1
+            </span>
+
+            <button onclick="changeQuantity(1)">
+                +
+            </button>
+
+        </div>
+
+
+        <div class="modal-total">
+
+            Total :
+            <strong>
+                <span id="modalTotal">0</span> DA
+            </strong>
+
+        </div>
+
+
+        <button
+            class="add-button"
+            onclick="addToCart()">
+
+            Ajouter au panier 🛒
+
+        </button>
+
+    </div>
 
 </div>
 
-<!-- CART -->
 
-<div class="cart-box">
+<!-- ================= CART ================= -->
 
-<div class="cart-header">
+<div id="cartModal" class="modal">
 
-<h2>🛒 Commande</h2>
+    <div class="modal-content cart-content">
 
-<div class="cart-count" id="cartCount">0</div>
+        <button
+            class="close-button"
+            onclick="closeCart()">
 
-</div>
+            ×
 
-<div class="cart-items" id="cartItems">
-
-<div class="empty">
-Votre panier est vide.
-</div>
-
-</div>
-
-<div class="total">
-
-<span>Total</span>
-
-<span id="total">0 DA</span>
-
-</div>
-
-<div class="order-form">
-
-<select id="orderType" onchange="toggleTable()">
-
-<option value="emporter">🥡 À emporter</option>
-
-<option value="table">🍽️ À table</option>
-
-</select>
-
-<input
-type="text"
-id="customerName"
-placeholder="Nom (facultatif)"
->
-
-<input
-type="text"
-id="tableNumber"
-placeholder="Numéro de table"
-style="display:none"
->
-
-<textarea
-id="notes"
-placeholder="Note / remarque (facultatif)"
-></textarea>
-
-</div>
-
-<button
-class="download-btn"
-onclick="downloadOrder()">
-
-📥 Télécharger la commande PNG
-
-</button>
-
-<button
-class="clear-btn"
-onclick="clearCart()">
-
-🗑️ Vider la commande
-
-</button>
-
-</div>
+        </button>
 
 
-<!-- MODAL MODIFIERS -->
-
-<div class="modal" id="modifierModal">
-
-<div class="modal-content">
-
-<h2 id="modifierTitle">Modifier le produit</h2>
-
-<div class="option-group">
-
-<h3>➕ Sup</h3>
-
-<label class="option">
-<input type="checkbox" value="Fromage" class="sup">
-Fromage
-</label>
-
-<label class="option">
-<input type="checkbox" value="Sauce" class="sup">
-Sauce
-</label>
-
-<label class="option">
-<input type="checkbox" value="Frites" class="sup">
-Frites
-</label>
-
-</div>
+        <h2>🛒 Votre panier</h2>
 
 
-<div class="option-group">
+        <div id="cartItems">
 
-<h3>➖ Sans</h3>
+            <p class="empty-cart">
+                Votre panier est vide.
+            </p>
 
-<label class="option">
-<input type="checkbox" value="Oignon" class="sans">
-Oignon
-</label>
+        </div>
 
-<label class="option">
-<input type="checkbox" value="Sauce" class="sans">
-Sauce
-</label>
 
-<label class="option">
-<input type="checkbox" value="Fromage" class="sans">
-Fromage
-</label>
+        <div class="cart-total">
 
-</div>
+            <span>Total</span>
 
-<div class="modal-buttons">
+            <strong>
+                <span id="cartTotal">0</span> DA
+            </strong>
 
-<button
-class="cancel-btn"
-onclick="closeModifier()">
+        </div>
 
-Annuler
 
-</button>
+        <!-- ORDER TYPE -->
 
-<button
-class="confirm-btn"
-onclick="confirmAdd()">
+        <div class="order-type">
 
-Ajouter
+            <h3>Type de commande</h3>
 
-</button>
+            <label>
 
-</div>
+                <input
+                    type="radio"
+                    name="orderType"
+                    value="emporter"
+                    checked
+                    onchange="changeOrderType()">
 
-</div>
+                🛍️ Emporter
+
+            </label>
+
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="orderType"
+                    value="table"
+                    onchange="changeOrderType()">
+
+                🍽️ À table
+
+            </label>
+
+        </div>
+
+
+        <!-- TABLE NUMBER -->
+
+        <div
+            id="tableNumberContainer"
+            class="table-number"
+            style="display:none">
+
+            <label>
+                Numéro de table
+            </label>
+
+            <input
+                type="number"
+                id="tableNumber"
+                placeholder="Ex: 5"
+                min="1">
+
+        </div>
+
+
+        <!-- CUSTOMER NAME -->
+
+        <div class="customer-info">
+
+            <label>
+                Nom
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Votre nom">
+
+        </div>
+
+
+        <button
+            class="order-button"
+            onclick="sendOrder()">
+
+            Confirmer la commande
+
+        </button>
+
+    </div>
 
 </div>
 
 
-<!-- PNG -->
+<!-- ================= LOCATION ================= -->
 
-<div id="orderPNG">
+<section class="location-section">
 
-<h1 class="png-title">
-Happy M
-</h1>
+    <div class="section-title">
 
-<p class="png-subtitle">
-La Salamandre - Mostaganem
-</p>
+        <span></span>
 
-<div id="pngInfo"></div>
+        <h2>📍 Nous trouver</h2>
 
-<div id="pngItems"></div>
+        <span></span>
 
-<div class="png-total">
-
-<span>Total</span>
-
-<span id="pngTotal"></span>
-
-</div>
-
-</div>
+    </div>
 
 
-<footer>
+    <p>
+        Retrouvez-nous facilement sur Google Maps.
+    </p>
 
-<h2>Happy M</h2>
 
-<p>La Salamandre - Mostaganem</p>
+    <a
+        href="https://maps.google.com/"
+        target="_blank"
+        class="location-button">
 
-<div class="socials">
+        📍 Voir notre localisation
 
-<a href="tel:0796474576">
-📞 0796474576
-</a>
+    </a>
 
-<a
-href="https://www.instagram.com/happym_officiel?stkn=M2syNnF2ZXN1czll"
-target="_blank">
-Instagram
-</a>
+</section>
 
-<a
-href="https://www.tiktok.com/@happy.m09?_r=1&_t=ZS-99qKEWvWhHu"
-target="_blank">
-TikTok
-</a>
 
-<a
-href="https://www.facebook.com/share/1B5qWSi44i/?mibextid=wwXIfr"
-target="_blank">
-Facebook
-</a>
+<!-- ================= FOOTER ================= -->
 
-<a
-href="https://maps.app.goo.gl/2uvAQXMvUFpDa1Z76?g_st=ic"
-target="_blank">
-📍 Google Maps
-</a>
+<footer class="footer">
 
-</div>
+    <img
+        src="logo.jpeg"
+        alt="Happy Food"
+        class="footer-logo">
+
+    <h2>Happy Food</h2>
+
+    <p>
+        Salé • Sucré • Boissons
+    </p>
+
+    <p class="copyright">
+        © 2026 Happy Food — Tous droits réservés
+    </p>
 
 </footer>
 
 
-<script>
+<!-- ================= JAVASCRIPT ================= -->
 
-/* =====================================================
-   PRODUITS
-   ===================================================== */
-
-const menu = {
-
-coffee: {
-    name:"☕ Happy Coffee",
-    emoji:"☕",
-    products:[
-        {
-            name:"Crêpe Croustillante",
-            price:0,
-            description:"Voir prix / détails",
-            image:"images/coffee-1.jpg"
-        }
-    ]
-},
-
-pizza:{
-    name:"🍕 Happy Pizza",
-    emoji:"🍕",
-    products:[
-
-        ["La Marguerite & Le Basilic",550],
-        ["Le Potager de Légume",650],
-        ["La Sicilienne",750],
-        ["Pepperoni",850],
-        ["Le Thon",850],
-        ["La Chèvre & L’Abeille",850],
-        ["Regina",880],
-        ["Tex Mex",950],
-        ["Machu Picchu",950],
-        ["La Paysanne",950],
-        ["Les 4 Fromages",980],
-        ["L’Odussée du Saumon",1350],
-        ["Barbecue",1350],
-        ["Rimini",1500],
-        ["La Marée du Matin",1500],
-        ["Les Géantes",2500]
-
-    ].map((p,i)=>({
-        name:p[0],
-        price:p[1],
-        description:"Pizza",
-        image:`images/pizza-${i+1}.jpg`
-    }))
-},
-
-burger:{
-    name:"🍔 Happy Burger",
-    emoji:"🍔",
-    products:[
-
-        {
-            name:"Burger Fermier",
-            price:0,
-            description:"Prix à renseigner",
-            image:"images/burger-1.jpg"
-        },
-
-        {
-            name:"Burger Hawaii",
-            price:700,
-            description:"Burger",
-            image:"images/burger-2.jpg"
-        }
-
-    ]
-},
-
-poule:{
-    name:"🍗 Happy La Poule",
-    emoji:"🍗",
-    products:[
-
-        {
-            name:"7 pièces de poulet mixte",
-            price:900,
-            description:"Poulet mixte",
-            image:"images/poule-1.jpg"
-        },
-
-        {
-            name:"10 pièces de poulet mixte",
-            price:1200,
-            description:"Poulet mixte",
-            image:"images/poule-2.jpg"
-        },
-
-        {
-            name:"20 pièces de poulet mixte",
-            price:2200,
-            description:"Poulet mixte",
-            image:"images/poule-3.jpg"
-        },
-
-        {
-            name:"3 Tenders",
-            price:500,
-            description:"Tenders",
-            image:"images/poule-4.jpg"
-        },
-
-        {
-            name:"7 Hot Wings",
-            price:500,
-            description:"Hot Wings",
-            image:"images/poule-5.jpg"
-        },
-
-        {
-            name:"Chicken Family Menu",
-            price:2000,
-            description:"10 pièces de poulet + 3 Frites + 3 Desserts + boisson 1L",
-            image:"images/poule-6.jpg"
-        }
-
-    ]
-},
-
-tacos:{
-    name:"🌮 Happy Tacos",
-    emoji:"🌮",
-    products:[]
-},
-
-sandwich:{
-    name:"🥪 Happy Sandwich",
-    emoji:"🥪",
-    products:[
-
-        {
-            name:"Crunchy",
-            price:0,
-            description:"Prix à renseigner",
-            image:"images/sandwich-1.jpg"
-        },
-
-        {
-            name:"Le Grand Canyon",
-            price:0,
-            description:"Prix à renseigner",
-            image:"images/sandwich-2.jpg"
-        },
-
-        {
-            name:"Le Duel",
-            price:0,
-            description:"Prix à renseigner",
-            image:"images/sandwich-3.jpg"
-        },
-
-        {
-            name:"Porto Bello",
-            price:0,
-            description:"Prix à renseigner",
-            image:"images/sandwich-4.jpg"
-        }
-
-    ]
-},
-
-other:{
-    name:"📦 Other",
-    emoji:"📦",
-    products:[
-
-        {
-            name:"Kyoto Boll",
-            price:750,
-            description:"",
-            image:"images/other-1.jpg"
-        },
-
-        {
-            name:"Salade César",
-            price:350,
-            description:"",
-            image:"images/other-2.jpg"
-        }
-
-    ]
-}
-
-};
-
-
-/* =====================================================
-   CATEGORIES
-   ===================================================== */
-
-const categoryOrder=[
-    "coffee",
-    "pizza",
-    "burger",
-    "poule",
-    "tacos",
-    "sandwich",
-    "other"
-];
-
-const categories=document.getElementById("categories");
-
-categoryOrder.forEach((key,index)=>{
-
-    const button=document.createElement("button");
-
-    button.className="category-btn";
-
-    if(index===0){
-        button.classList.add("active");
-    }
-
-    button.textContent=menu[key].name;
-
-    button.onclick=()=>{
-
-        document
-        .querySelectorAll(".category-btn")
-        .forEach(b=>b.classList.remove("active"));
-
-        button.classList.add("active");
-
-        showCategory(key);
-    };
-
-    categories.appendChild(button);
-
-});
-
-
-/* =====================================================
-   AFFICHER CATÉGORIE
-   ===================================================== */
-
-let currentCategory="coffee";
-
-function showCategory(category){
-
-    currentCategory=category;
-
-    const data=menu[category];
-
-    document.getElementById("sectionTitle").textContent=data.name;
-
-    const container=document.getElementById("products");
-
-    container.innerHTML="";
-
-    if(data.products.length===0){
-
-        container.innerHTML=`
-            <div class="empty">
-                ${data.emoji} Cette catégorie est actuellement vide.
-            </div>
-        `;
-
-        return;
-    }
-
-    data.products.forEach((product,index)=>{
-
-        const card=document.createElement("div");
-
-        card.className="product";
-
-        card.innerHTML=`
-
-            <img
-                class="product-img"
-                src="${product.image}"
-                alt="${product.name}"
-                onerror="this.style.display='none'"
-            >
-
-            <div class="product-content">
-
-                <h3>${product.name}</h3>
-
-                <p class="description">
-                    ${product.description || ""}
-                </p>
-
-                <div class="price">
-                    ${
-                        product.price > 0
-                        ? product.price + " DA"
-                        : "Prix à renseigner"
-                    }
-                </div>
-
-                <button
-                    class="add-btn"
-                    onclick="openModifier('${category}',${index})">
-
-                    ➕ Ajouter
-
-                </button>
-
-            </div>
-        `;
-
-        container.appendChild(card);
-
-    });
-
-}
-
-
-/* =====================================================
-   CART
-   ===================================================== */
-
-let cart=JSON.parse(localStorage.getItem("happyMCart")) || [];
-
-let selectedProduct=null;
-
-
-function saveCart(){
-
-    localStorage.setItem(
-        "happyMCart",
-        JSON.stringify(cart)
-    );
-
-}
-
-
-function openModifier(category,index){
-
-    selectedProduct={
-        category,
-        index
-    };
-
-    const product=menu[category].products[index];
-
-    document.getElementById("modifierTitle").textContent=
-        "Modifier : "+product.name;
-
-    document
-    .querySelectorAll(".modal input")
-    .forEach(input=>{
-        input.checked=false;
-    });
-
-    document.getElementById("modifierModal").style.display="flex";
-
-}
-
-
-function closeModifier(){
-
-    document.getElementById("modifierModal").style.display="none";
-
-    selectedProduct=null;
-
-}
-
-
-function confirmAdd(){
-
-    if(!selectedProduct)return;
-
-    const product=
-        menu[selectedProduct.category]
-        .products[selectedProduct.index];
-
-    const sup=[
-        ...document.querySelectorAll(".sup:checked")
-    ].map(x=>x.value);
-
-    const sans=[
-        ...document.querySelectorAll(".sans:checked")
-    ].map(x=>x.value);
-
-    cart.push({
-
-        id:Date.now(),
-
-        name:product.name,
-
-        price:Number(product.price)||0,
-
-        sup,
-
-        sans,
-
-        quantity:1
-
-    });
-
-    saveCart();
-
-    renderCart();
-
-    closeModifier();
-
-}
-
-
-function increase(id){
-
-    const item=cart.find(x=>x.id===id);
-
-    if(item){
-
-        item.quantity++;
-
-        saveCart();
-
-        renderCart();
-
-    }
-
-}
-
-
-function decrease(id){
-
-    const item=cart.find(x=>x.id===id);
-
-    if(!item)return;
-
-    item.quantity--;
-
-    if(item.quantity<=0){
-
-        cart=cart.filter(x=>x.id!==id);
-
-    }
-
-    saveCart();
-
-    renderCart();
-
-}
-
-
-function clearCart(){
-
-    if(confirm("Vider toute la commande ?")){
-
-        cart=[];
-
-        saveCart();
-
-        renderCart();
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER CART
-   ===================================================== */
-
-function renderCart(){
-
-    const container=document.getElementById("cartItems");
-
-    container.innerHTML="";
-
-    let total=0;
-
-    let count=0;
-
-    if(cart.length===0){
-
-        container.innerHTML=`
-            <div class="empty">
-                Votre panier est vide.
-            </div>
-        `;
-
-    }
-
-    cart.forEach(item=>{
-
-        const itemTotal=
-            item.price*item.quantity;
-
-        total+=itemTotal;
-
-        count+=item.quantity;
-
-        const div=document.createElement("div");
-
-        div.className="cart-item";
-
-        div.innerHTML=`
-
-            <div class="cart-item-top">
-
-                <div>
-
-                    <div class="cart-item-name">
-                        ${item.name}
-                    </div>
-
-                    <div class="modifiers">
-
-                        ${
-                            item.sup.length
-                            ? "Sup : "+item.sup.join(", ")
-                            : ""
-                        }
-
-                        ${
-                            item.sans.length
-                            ? "<br>Sans : "+item.sans.join(", ")
-                            : ""
-                        }
-
-                    </div>
-
-                </div>
-
-                <div class="cart-price">
-                    ${itemTotal} DA
-                </div>
-
-            </div>
-
-
-            <div class="qty">
-
-                <button
-                    onclick="decrease(${item.id})">
-                    −
-                </button>
-
-                <span>
-                    ${item.quantity}
-                </span>
-
-                <button
-                    onclick="increase(${item.id})">
-                    +
-                </button>
-
-            </div>
-
-        `;
-
-        container.appendChild(div);
-
-    });
-
-
-    document.getElementById("total").textContent=
-        total+" DA";
-
-    document.getElementById("cartCount").textContent=
-        count;
-
-}
-
-
-/* =====================================================
-   TYPE DE COMMANDE
-   ===================================================== */
-
-function toggleTable(){
-
-    const type=
-        document.getElementById("orderType").value;
-
-    document.getElementById("tableNumber").style.display=
-        type==="table" ? "block" : "none";
-
-}
-
-
-/* =====================================================
-   DOWNLOAD PNG
-   ===================================================== */
-
-async function downloadOrder(){
-
-    if(cart.length===0){
-
-        alert("Votre commande est vide.");
-
-        return;
-    }
-
-
-    const orderType=
-        document.getElementById("orderType").value;
-
-    const customerName=
-        document.getElementById("customerName").value;
-
-    const tableNumber=
-        document.getElementById("tableNumber").value;
-
-    const notes=
-        document.getElementById("notes").value;
-
-
-    let total=0;
-
-    let html="";
-
-
-    cart.forEach(item=>{
-
-        const itemTotal=
-            item.price*item.quantity;
-
-        total+=itemTotal;
-
-        html+=`
-
-        <div class="png-line">
-
-            <div>
-                <strong>
-                    ${item.quantity} × ${item.name}
-                </strong>
-            </div>
-
-            ${
-                item.sup.length
-                ? `<div>Sup : ${item.sup.join(", ")}</div>`
-                : ""
-            }
-
-            ${
-                item.sans.length
-                ? `<div>Sans : ${item.sans.join(", ")}</div>`
-                : ""
-            }
-
-            <div style="margin-top:5px">
-                ${itemTotal} DA
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-
-    document.getElementById("pngInfo").innerHTML=`
-
-        <div class="png-line">
-            <strong>Type :</strong>
-            ${
-                orderType==="table"
-                ? "À table"
-                : "À emporter"
-            }
-        </div>
-
-        ${
-            customerName
-            ? `
-            <div class="png-line">
-                <strong>Nom :</strong>
-                ${customerName}
-            </div>
-            `
-            :""
-        }
-
-        ${
-            orderType==="table" && tableNumber
-            ? `
-            <div class="png-line">
-                <strong>Table :</strong>
-                ${tableNumber}
-            </div>
-            `
-            :""
-        }
-
-        ${
-            notes
-            ? `
-            <div class="png-line">
-                <strong>Note :</strong>
-                ${notes}
-            </div>
-            `
-            :""
-        }
-
-    `;
-
-
-    document.getElementById("pngItems").innerHTML=html;
-
-    document.getElementById("pngTotal").textContent=
-        total+" DA";
-
-
-    try{
-
-        const canvas=
-            await html2canvas(
-                document.getElementById("orderPNG"),
-                {
-                    scale:2,
-                    backgroundColor:"#ffffff"
-                }
-            );
-
-        const link=
-            document.createElement("a");
-
-        link.download=
-            "commande-Happy-M.png";
-
-        link.href=
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        alert(
-            "Impossible de créer l'image. Réessayez."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   START
-   ===================================================== */
-
-showCategory("coffee");
-
-renderCart();
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
